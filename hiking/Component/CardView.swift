@@ -12,6 +12,7 @@ struct CardView: View {
     // @State keyword is used to indicate that this is variable in the struct is mutable, also when this value is changed then reset the struct view. Works like setState in flutter
     @State private var imageNumber: Int = 1
     @State private var randomNumber: Int = 1
+    @State private var isShowingSheet : Bool = false
     
     // MARK: - FUNCTIONS
     
@@ -39,9 +40,14 @@ struct CardView: View {
                         Spacer()
                         Button {
                             // ACTION : Show a sheet
-                            print("button was pressed")
+                            isShowingSheet.toggle()
                         } label: {
                             CustomButtonView()
+                        }
+                        .sheet(isPresented: $isShowingSheet) {
+                            SettingsView()
+                                .presentationDragIndicator(.visible)
+                                .presentationDetents([.medium,.large])
                         }
                     }
                     Text("Fund and enjoyable outdoor activity for friends and families.")
